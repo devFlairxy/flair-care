@@ -14,6 +14,8 @@ import {
   users,
 } from '../appwrite.config';
 import { parseStringify } from '../utils';
+import { cache } from 'react';
+
 
 // CREATE APPWRITE USER
 export const createUser = async (user: CreateUserParams) => {
@@ -42,7 +44,7 @@ export const createUser = async (user: CreateUserParams) => {
 };
 
 // GET USER
-export const getUser = async (userId: string) => {
+export const getUser = cache(async (userId: string) => {
   try {
     const user = await users.get(userId);
 
@@ -53,7 +55,7 @@ export const getUser = async (userId: string) => {
       error
     );
   }
-};
+});
 
 // REGISTER PATIENT
 export const registerPatient = async ({
